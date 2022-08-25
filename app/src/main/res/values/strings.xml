@@ -3,6 +3,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="login_title">Sign in to Sainyojit!🎉</string>
     <string name="something_went_wrong">Something went wrong!</string>
     <string name="internet_not_available">Please check your internet connection and try again</string>
     <string name="request_login_credentials">Request login credentials</string>
