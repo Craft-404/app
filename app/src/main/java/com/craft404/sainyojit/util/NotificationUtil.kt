@@ -11,7 +11,7 @@ class NotificationUtil(private val context: Context) {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
-    init {
+    fun init() {
         createChannels("Sainyojit_Tasks", "Tasks", "", NotificationManager.IMPORTANCE_DEFAULT)
         createChannels("Sainyojit_Mentions", "Mentions", "", NotificationManager.IMPORTANCE_HIGH)
         createChannels("Sainyojit_Deadlines", "Deadlines", "", NotificationManager.IMPORTANCE_MAX)

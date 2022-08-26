@@ -1,5 +1,6 @@
 package com.craft404.sainyojit.util
 
+import android.util.Log
 import retrofit2.Response
 
 suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
@@ -9,6 +10,7 @@ suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
             return Result.Success(response.body()!!)
         return Result.Error(Exception(response.message()))
     } catch (e: Exception) {
+        Log.e("YASH", "getResult: ", e)
         return Result.Error(e)
     }
 }

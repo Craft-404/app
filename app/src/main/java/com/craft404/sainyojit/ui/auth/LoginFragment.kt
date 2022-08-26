@@ -1,5 +1,6 @@
 package com.craft404.sainyojit.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,14 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.craft404.sainyojit.R
 import com.craft404.sainyojit.databinding.FragmentLoginBinding
+import com.craft404.sainyojit.ui.MainActivity
+import com.craft404.sainyojit.ui.base.CoreSainyojitFragment
 import com.craft404.sainyojit.util.Result
 import com.craft404.sainyojit.util.isEmpty
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class LoginFragment : Fragment() {
+class LoginFragment : CoreSainyojitFragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
@@ -37,28 +40,43 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.init()
+        initUI()
         addObservers()
     }
 
-    private fun addObservers() {
+    override fun initUI() {
+        binding.init()
+    }
+
+    override fun addObservers() {
         viewModel.result.observe(viewLifecycleOwner) {
+            binding.login.isEnabled = (it is Result.Loading).not()
             when (it) {
                 is Result.Error -> {
+                    hideLoading()
                     Log.e("TAG", "addObservers: ", it.exception)
                 }
-                is Result.Loading -> Log.d("LoginFragment.kt", "YASH => addObservers:48 loading")
-                is Result.Success -> Log.d("LoginFragment.kt", "YASH => addObservers:49 success")
+                is Result.Loading -> {
+                    Log.d("LoginFragment.kt", "YASH => addObservers:48 loading")
+                    showLoading()
+                }
+                is Result.Success -> startActivity(Intent(requireActivity(), MainActivity::class.java)).also {
+                    hideLoading()
+                    requireActivity().finish()
+                }
             }
         }
     }
 
     private fun FragmentLoginBinding.init() {
         signUp.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, SignUpFragment.newInstance())
-                ?.addToBackStack(null)
-                ?.commit()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Contact Admin")
+                .setMessage("Please contact admin@aicte.org to get your credentials to sign in to this portal")
+                .setPositiveButton("Dismiss") { d, _ ->
+                    d.dismiss()
+                }
+                .show()
         }
 
         editEmail.doAfterTextChanged { text ->

@@ -45,7 +45,6 @@ class AppObjectController {
                 .build()
 
             commonNetworkService = retrofit.create(CommonNetworkService::class.java)
-
         }
     }
 }

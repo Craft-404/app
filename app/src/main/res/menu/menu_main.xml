@@ -4,15 +4,13 @@
     <item
         android:id="@+id/action_notification"
         android:icon="@drawable/ic_baseline_notifications_24"
-        android:title="Notifications"
-        app:showAsAction="always"/>
+        android:title="@string/notifications"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="search"
-        app:showAsAction="always"/>
-
-    <!-- Settings, should always be in the overflow -->
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout"
+        app:showAsAction="ifRoom" />
 
 </menu>

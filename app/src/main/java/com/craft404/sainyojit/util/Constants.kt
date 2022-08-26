@@ -8,4 +8,4 @@ const val KEY_APP_VERSION_NAME = "app-version-name"
 const val KEY_APP_USER_AGENT = "HTTP_USER_AGENT"
 const val KEY_APP_ACCEPT_LANGUAGE = "Accept-Language"
 
-const val DIR = "/api/v1/"
+const val DIR = "/api/v1"

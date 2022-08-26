@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.craft404.sainyojit.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/navigation_task"
+        android:name="com.craft404.sainyojit.ui.task.TaskFragment"
+        android:label="Tasks"
+        tools:layout="@layout/fragment_task">
+        <action
+            android:id="@+id/action_navigation_task_to_assignTaskFragment"
+            app:destination="@id/assignTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/assignTaskFragment"
+        android:name="com.craft404.sainyojit.ui.task.AssignTaskFragment"
+        android:label="Assign Task"
+        tools:layout="@layout/fragment_assign_task" >
+        <action
+            android:id="@+id/action_assignTaskFragment_to_employeeListDialog"
+            app:destination="@id/employeeListDialog" />
+    </fragment>
+
+
+    <dialog
+        android:id="@+id/employeeListDialog"
+        android:name="com.craft404.sainyojit.ui.dialog.EmployeeListDialog"
+        android:label="Employee List"
+        tools:layout="@layout/dialog_employee_list" />
+    <fragment
+        android:id="@+id/navigation_approval"
+        android:name="com.craft404.sainyojit.ui.approval.ApprovalFragment"
+        tools:layout="@layout/fragment_approval"
+        android:label="Approvals" />
+    <fragment
+        android:id="@+id/navigation_office"
+        android:name="com.craft404.sainyojit.ui.office.OfficeFragment"
+        android:label="OfficeFragment" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.craft404.sainyojit.ui.notification.NotificationFragment"
+        tools:layout="@layout/fragment_swipe_recycler"
+        android:label="Notifications" />
+
+</navigation>
