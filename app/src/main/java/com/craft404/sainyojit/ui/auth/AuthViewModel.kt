@@ -11,7 +11,6 @@ import com.craft404.sainyojit.util.PrefManager
 import com.craft404.sainyojit.util.PrefManager.API_TOKEN
 import com.craft404.sainyojit.util.Result
 import com.craft404.sainyojit.util.getResult
-import com.craft404.videocall.util.VideoCallObjectController
 import kotlinx.coroutines.launch
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
@@ -30,7 +29,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 result.data.update()
                 if (result.data.token != null) {
                     PrefManager.put(API_TOKEN, result.data.token)
-                    VideoCallObjectController.init(application = getApplication(), apiToken = result.data.token)
                 }
             }
         }

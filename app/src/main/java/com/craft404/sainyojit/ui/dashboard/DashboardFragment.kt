@@ -64,10 +64,6 @@ class DashboardFragment : CoreSainyojitFragment() {
             }
             when (it) {
                 is Result.Success -> {
-                    Log.d(
-                        "DashboardFragment.kt",
-                        "YASH => addObservers:66 ${it.data.announcements.joinToString(separator = "\n•") { announcementModel -> announcementModel.name }}"
-                    )
                     with(binding) {
                         rvOverdue.isVisible = it.data.overdue.isNotEmpty()
                         rvApprovals.isVisible = it.data.approvals.isNotEmpty()
@@ -95,12 +91,10 @@ class DashboardFragment : CoreSainyojitFragment() {
                     overdueAdapter.submitList(it.data.overdue)
 
                     if (it.data.announcements.isEmpty()) {
-                        Log.d("DashboardFragment.kt", "YASH => addObservers:98 ")
                         binding.noAnnouncements.viewStub?.inflate().also { view ->
                             view?.visibility = View.VISIBLE
                         }
                     } else {
-                        Log.d("DashboardFragment.kt", "YASH => addObservers:103 ")
                         binding.noAnnouncements.viewStub?.visibility = View.GONE
                         binding.announcements.text = it.data.announcements.joinToString(separator = "\n•") { announcementModel -> announcementModel.name }
                     }

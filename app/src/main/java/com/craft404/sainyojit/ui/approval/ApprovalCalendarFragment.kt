@@ -1,4 +1,4 @@
-package com.craft404.sainyojit.ui.task
+package com.craft404.sainyojit.ui.approval
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,27 +10,24 @@ import com.craft404.sainyojit.R
 import com.craft404.sainyojit.databinding.FragmentSwipeRecyclerBinding
 import com.craft404.sainyojit.repository.entity.TicketEntity
 import com.craft404.sainyojit.ui.base.CoreSainyojitFragment
-import com.craft404.sainyojit.ui.dialog.TicketDialog
 import com.craft404.sainyojit.util.ItemClickListener
-import com.craft404.sainyojit.util.Result
-import com.craft404.sainyojit.util.showAppropriateMsg
 import com.craft404.sainyojit.util.showToast
 import java.util.*
 
-class TaskCalendarFragment : CoreSainyojitFragment(), ItemClickListener {
+class ApprovalCalendarFragment : CoreSainyojitFragment(), ItemClickListener {
     private lateinit var binding: FragmentSwipeRecyclerBinding
     private var calendar: Calendar = Calendar.getInstance()
-    private val adapter = TaskCalendarAdapter()
+    private val adapter = ApprovalCalendarAdapter()
     private val viewModel by lazy {
-        ViewModelProvider(this)[TaskViewModel::class.java]
+        ViewModelProvider(this)[ApprovalViewModel::class.java]
     }
 
     companion object {
         private const val ARG_DATE = "ARG_DATE"
-        fun newInstance(date: Date): TaskCalendarFragment {
+        fun newInstance(date: Date): ApprovalCalendarFragment {
             val args = Bundle()
             args.putLong(ARG_DATE, date.time)
-            val fragment = TaskCalendarFragment()
+            val fragment = ApprovalCalendarFragment()
             fragment.arguments = args
             return fragment
         }
@@ -47,37 +44,36 @@ class TaskCalendarFragment : CoreSainyojitFragment(), ItemClickListener {
         initUI()
         addObservers()
         adapter.setListener(this)
-        viewModel.fetchTasks(calendar, calendar.before(Calendar.getInstance()))
+        viewModel.fetchApprovals(calendar, calendar.before(Calendar.getInstance()))
     }
 
     override fun initUI() {
         binding.recyclerView.adapter = adapter
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.fetchTasks(calendar, calendar.before(Calendar.getInstance()))
+            viewModel.fetchApprovals(calendar, calendar.before(Calendar.getInstance()))
         }
     }
 
     override fun addObservers() {
-        viewModel.taskResult.observe(viewLifecycleOwner) {
-            binding.swipeRefreshLayout.isRefreshing = it is Result.Loading
-            when (it) {
-                is Result.Success -> {
-                    if (it.data.tasks.isEmpty()) {
-                        showToast("No approvals found")
-                    } else {
-                        adapter.submitList(it.data.tasks)
-                    }
-                }
-                is Result.Error -> {
-                    it.exception.showAppropriateMsg()
-                }
-                is Result.Loading -> {}
+        viewModel.isProcessing.observe(viewLifecycleOwner) {
+            binding.swipeRefreshLayout.isRefreshing = it
+        }
+        viewModel.approvalResult.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                showToast("No approvals found")
+            } else {
+                adapter.submitList(it)
             }
         }
     }
 
     override fun <T> onItemClick(position: Int, item: T) {
-        val dialog = TicketDialog.newInstance(item as TicketEntity)
-        dialog.show(childFragmentManager, "TicketDialog")
+        (item as TicketEntity).let {
+            ApproveApplicationActivity.start(
+                context = requireContext(),
+                applicationId = it.applicationId?.id ?: "",
+                ticketId = it.id
+            )
+        }
     }
 }

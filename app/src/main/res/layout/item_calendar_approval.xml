@@ -18,13 +18,13 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-4dp"
             android:text="Due At"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             android:textColor="?attr/colorPrimary"
             android:textSize="11sp"
             app:layout_constraintBottom_toTopOf="@id/due_date"
             app:layout_constraintEnd_toEndOf="@id/due_date"
+            android:layout_marginBottom="-4dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/due_date"
             app:textAllCaps="false" />
@@ -57,8 +57,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_medium"
+
+            android:layout_marginVertical="@dimen/margin_small"
             app:contentPadding="@dimen/margin_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"

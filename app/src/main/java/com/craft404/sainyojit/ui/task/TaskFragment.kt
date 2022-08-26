@@ -49,7 +49,7 @@ class TaskFragment : CoreSainyojitFragment() {
         )
         binding.apply {
             viewPager2.adapter = createViewPagerAdapter(list)
-            viewPager2.offscreenPageLimit = 7
+            viewPager2.offscreenPageLimit = 4
             TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
                 val calendar = Calendar.getInstance().apply { time = list[position] }
                 val customView = LinearLayout(requireContext()).apply {

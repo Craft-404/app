@@ -116,5 +116,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
 //    implementation project(path: ':kanban')
-    implementation project(path: ':videocall')
+//    implementation project(path: ':videocall')
 }

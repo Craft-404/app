@@ -13,11 +13,23 @@ data class ApplicationModel(
     val scheme: String,
 
     @SerializedName("userId")
-    val userId: String,
+    val userId: String?,
 
     @SerializedName("status")
     val status: Int,
+) : Parcelable
 
-    @SerializedName("applicationFormLink")
-    val applicationFormLink: String?,
+@Parcelize
+data class ApplicationUserModel(
+    @SerializedName("_id")
+    val id: String,
+
+    @SerializedName("scheme")
+    val scheme: SchemeModel,
+
+    @SerializedName("userId")
+    val userId: UserModel?,
+
+    @SerializedName("status")
+    val status: Int,
 ) : Parcelable
