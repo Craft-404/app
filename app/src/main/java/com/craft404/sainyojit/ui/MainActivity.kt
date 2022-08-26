@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_dashboard,
             R.id.navigation_task,
             R.id.navigation_approval,
-            R.id.navigation_office
+//            R.id.navigation_office
         ).build()
         val navController: NavController = findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
